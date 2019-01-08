@@ -14,7 +14,7 @@ function toggleLife(status) {
 };
 
 (function whoLivesWhoDies() {
-  return chrome.storage.local.get(["crimeScene"], function(result) {
+  return browser.storage.local.get(["crimeScene"], function(result) {
     toggleLife(result.crimeScene ? "block" : "none");
   });
 })();

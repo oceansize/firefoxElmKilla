@@ -1,6 +1,6 @@
-chrome.browserAction.onClicked.addListener(callTheKiller);
-chrome.tabs.onUpdated.addListener(callTheKillerBack);
-chrome.tabs.onActivated.addListener(callTheKillerBack);
+browser.browserAction.onClicked.addListener(callTheKiller);
+browser.tabs.onUpdated.addListener(callTheKillerBack);
+browser.tabs.onActivated.addListener(callTheKillerBack);
 
 function callTheKiller() {
   checkCommunityAndTerrorize(releaseTheKillerAndWarnTheTown);
@@ -11,7 +11,7 @@ function callTheKillerBack() {
 };
 
 function checkCommunityAndTerrorize(callback) {
-  chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+  browser.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
     let url = tabs[0].url;
     if (url.includes("https://") || url.includes("http://")) {
       callback();
@@ -24,19 +24,19 @@ function validateUrl() {
 };
 
 function releaseTheKiller() {
-  chrome.tabs.executeScript(null, { file: "./kill-elm-dead.js" });
+  browser.tabs.executeScript(null, { file: "./kill-elm-dead.js" });
 };
 
 function releaseTheKillerAndWarnTheTown() {
-  chrome.storage.local.get(["crimeScene"], function(result) {
+  browser.storage.local.get(["crimeScene"], function(result) {
     result.crimeScene ? coverItUp() : warnTheTown();
-    chrome.storage.local.set({ "crimeScene": !result.crimeScene });
+    browser.storage.local.set({ "crimeScene": !result.crimeScene });
     releaseTheKiller();
   });
 };
 
 function warnTheTown() {
-  chrome.browserAction.setIcon({
+  browser.browserAction.setIcon({
     path : {
       "16": "images/elm-lives16.png",
       "32": "images/elm-lives32.png",
@@ -47,7 +47,7 @@ function warnTheTown() {
 }
 
 function coverItUp() {
-  chrome.browserAction.setIcon({
+  browser.browserAction.setIcon({
     path : {
       "16": "images/elm-dies16.png",
       "32": "images/elm-dies32.png",
